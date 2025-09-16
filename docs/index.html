@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>鶏肉価格ダッシュボード</title>
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif; line-height: 1.5; margin: 20px; }
+    header { display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; }
+    .cards { display:grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 16px; margin-top: 16px; }
+    .card { border:1px solid #ddd; border-radius:12px; padding:14px; }
+    table { width:100%; border-collapse: collapse; font-size:14px; }
+    th,td { border-bottom:1px solid #eee; padding:6px 8px; white-space:nowrap; }
+    th { text-align:left; background:#fafafa; position:sticky; top:0; }
+    .scroll { max-height: 420px; overflow:auto; border:1px solid #eee; border-radius:12px; }
+    .muted { color:#666; font-size: 12px; }
+    a.button { display:inline-block; padding:8px 12px; border-radius:10px; border:1px solid #ddd; text-decoration:none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>鶏肉価格ダッシュボード</h1>
+    <nav>
+      <a class="button" href="./data/daily.csv" download>CSVダウンロード</a>
+      <a class="button" href="./data/daily.json" target="_blank">JSON</a>
+      <a class="button" href="./data/monthly-summary.json" target="_blank">月次サマリJSON</a>
+    </nav>
+  </header>
+
+  <div class="cards">
+    <div class="card">
+      <h3>最新サマリ</h3>
+      <div id="latest">読み込み中…</div>
+      <div class="muted" id="updated"></div>
+    </div>
+    <div class="card">
+      <h3>月次平均（market_price）</h3>
+      <ul id="monthly"></ul>
+    </div>
+  </div>
+
+  <h2>日次データ</h2>
+  <div class="scroll">
+    <table id="table">
+      <thead>
+        <tr>
+          <th>date</th><th>weekday</th>
+          <th>momo_low</th><th>momo_avg</th><th>momo_high</th><th>momo_vol</th>
+          <th>mune_low</th><th>mune_avg</th><th>mune_high</th><th>mune_vol</th>
+          <th>market_price</th><th>transaction_price</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    async function load() {
+      const daily = await fetch('./data/daily.json', { cache: 'no-store' }).then(r=>r.json());
+      const monthly = await fetch('./data/monthly-summary.json', { cache: 'no-store' }).then(r=>r.json());
+
+      const last = daily[daily.length-1];
+      document.getElementById('latest').textContent =
+        last ? `${last.date}（${last.weekday}） / market=${last.market_price} / txn=${last.transaction_price}` : "データなし";
+      document.getElementById('updated').textContent = `件数: ${daily.length}（ページ再読込で反映）`;
+
+      const ul = document.getElementById('monthly');
+      ul.innerHTML = monthly.slice(-12).map(m => `<li>${m.year}/${String(m.month).padStart(2,'0')}: avg=${m.market_price_avg}</li>`).join('');
+
+      const tbody = document.querySelector('#table tbody');
+      tbody.innerHTML = daily.slice(-200).reverse().map(r => `
+        <tr>
+          <td>${r.date}</td><td>${r.weekday}</td>
+          <td>${r.momo_low}</td><td>${r.momo_avg}</td><td>${r.momo_high}</td><td>${r.momo_vol ?? ""}</td>
+          <td>${r.mune_low}</td><td>${r.mune_avg}</td><td>${r.mune_high}</td><td>${r.mune_vol ?? ""}</td>
+          <td>${r.market_price}</td><td>${r.transaction_price}</td>
+        </tr>`).join('');
+    }
+    load().catch(e => console.error(e));
+  </script>
+</body>
+</html>
