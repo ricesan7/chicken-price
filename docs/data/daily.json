@@ -670,5 +670,19 @@
     "mune_vol": 150,
     "market_price": 208,
     "transaction_price": 218
+  },
+  {
+    "date": "2025-10-31",
+    "weekday": "?",
+    "momo_low": 635,
+    "momo_avg": 729,
+    "momo_high": 931,
+    "momo_vol": 253,
+    "mune_low": 494,
+    "mune_avg": 558,
+    "mune_high": 692,
+    "mune_vol": 187,
+    "market_price": 208,
+    "transaction_price": 218
   }
 ]
