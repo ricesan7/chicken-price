@@ -740,5 +740,47 @@
     "mune_vol": 200,
     "market_price": 208,
     "transaction_price": 218
+  },
+  {
+    "date": "2025-11-07",
+    "weekday": "?",
+    "momo_low": 677,
+    "momo_avg": 736,
+    "momo_high": 943,
+    "momo_vol": 213,
+    "mune_low": 485,
+    "mune_avg": 551,
+    "mune_high": 713,
+    "mune_vol": 196,
+    "market_price": 208,
+    "transaction_price": 218
+  },
+  {
+    "date": "2025-11-08",
+    "weekday": "?",
+    "momo_low": 626,
+    "momo_avg": 731,
+    "momo_high": 911,
+    "momo_vol": "",
+    "mune_low": 472,
+    "mune_avg": 538,
+    "mune_high": 695,
+    "mune_vol": "",
+    "market_price": 206,
+    "transaction_price": 216
+  },
+  {
+    "date": "2025-11-09",
+    "weekday": "?",
+    "momo_low": 11,
+    "momo_avg": 8,
+    "momo_high": 2,
+    "momo_vol": 732.75,
+    "mune_low": 7,
+    "mune_avg": 548,
+    "mune_high": 4,
+    "mune_vol": 1280.75,
+    "market_price": 80,
+    "transaction_price": 90
   }
 ]
