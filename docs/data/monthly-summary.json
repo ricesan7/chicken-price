@@ -1,17 +1,12 @@
 [
   {
     "year": 2025,
-    "month": 9,
-    "market_price_avg": 193
-  },
-  {
-    "year": 2025,
     "month": 10,
     "market_price_avg": 188
   },
   {
     "year": 2025,
     "month": 11,
-    "market_price_avg": 181
+    "market_price_avg": 183
   }
 ]
