@@ -8,5 +8,10 @@
     "year": 2025,
     "month": 11,
     "market_price_avg": 181
+  },
+  {
+    "year": 2025,
+    "month": 12,
+    "market_price_avg": 210
   }
 ]
